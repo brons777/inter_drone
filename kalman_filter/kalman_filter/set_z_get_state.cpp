@@ -25,8 +25,17 @@ void set_z(std::string line, Eigen::VectorXd &z_k_observation_vector, Eigen::Vec
     getline(stream, y, delimiter);
     getline(stream, z, delimiter);
 
-    z_k_observation_vector(0) = v(0); z_k_observation_vector(1) = v(1); z_k_observation_vector(2) = v(2);
-    z_k_observation_vector(3) = atof(teta.c_str()) * M_PI / 180; z_k_observation_vector(4) = atof(phi.c_str()) * M_PI / 180; z_k_observation_vector(5) = atof(psi.c_str()) * M_PI / 180;
-    z_k_observation_vector(6) = omega(0); z_k_observation_vector(7) = omega(1); z_k_observation_vector(8) = omega(2);
-    d_k(0) = atof(delta_teta.c_str()) * M_PI / 180; d_k(1) = atof(delta_phi.c_str()) * M_PI / 180; d_k(2) = atof(delta_psi.c_str()) * M_PI / 180;
+    if (psi.empty())
+    {
+        ;
+    }
+    else
+    {
+        z_k_observation_vector(0) = v(0); z_k_observation_vector(1) = v(1); z_k_observation_vector(2) = v(2);
+            z_k_observation_vector(3) = atof(teta.c_str()) * M_PI / 180; z_k_observation_vector(4) = atof(phi.c_str()) * M_PI / 180; z_k_observation_vector(5) = atof(psi.c_str()) * M_PI / 180;
+            z_k_observation_vector(6) = omega(0); z_k_observation_vector(7) = omega(1); z_k_observation_vector(8) = omega(2);
+            d_k(0) = atof(delta_teta.c_str()) * M_PI / 180; d_k(1) = atof(delta_phi.c_str()) * M_PI / 180; d_k(2) = atof(delta_psi.c_str()) * M_PI / 180;
+    }
+
+   
 }

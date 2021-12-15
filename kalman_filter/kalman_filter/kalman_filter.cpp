@@ -68,7 +68,6 @@ class my_ekf
                             state_estimate_k_minus_1(8), d_k(0), d_k(1), d_k(2), state_estimate_k_minus_1(3), state_estimate_k_minus_1(4), 
                             state_estimate_k_minus_1(5), state_estimate_k_minus_1(9), state_estimate_k_minus_1(10), 
                             state_estimate_k_minus_1(11)) * (control_vector_k_minus_1)+(process_noise_v_k_minus_1);
-        std::cout <<"before: " << state_estimate_k.transpose() << std::endl;
         P_k = A_k_minus_1 * P_k_minus_1 * A_k_minus_1.transpose() + Q_k;
         
         measurement_residual_y_k = z_k_observation_vector - ((H_k * state_estimate_k) + (sensor_noise_w_k));
@@ -77,7 +76,6 @@ class my_ekf
         K_k = P_k * H_k.transpose() * S_k.inverse();
         state_estimate_k = state_estimate_k + (K_k * measurement_residual_y_k);
         P_k = P_k - (K_k * H_k * P_k);
-        std::cout << "after: " << state_estimate_k.transpose()<<std::endl;
         return 0;
 
     }
@@ -124,19 +122,19 @@ int main()
     std::ofstream myfile;
     myfile.open("C:\\Nikita\\2021\\704\\inter_drone\\kalman_filter\\kalman_filter\\result.csv");
     myfile << "x; y; z; vx; vy; vz; phi; teta; psi; omegaX; omegaY; omegaZ\n";
-    std::ifstream work_file("C:\\Nikita\\2021\\704\\inter_drone\\kalman_filter\\kalman_filter\\book2.csv");
+    std::ifstream work_file("C:\\Nikita\\2021\\704\\inter_drone\\kalman_filter\\kalman_filter\\book2test.csv");
     std::string line;
-    //char delimiter = ';';
     std::getline(work_file, line);
     std::getline(work_file, line);
     rez.col(0) = temp;
     myfile << std::to_string(rez(0, 0)) + ";" << std::to_string(rez(1, 0)) + ";" << std::to_string(rez(2, 0)) + ";" << std::to_string(rez(3, 0)) + ";" <<
         std::to_string(rez(4, 0)) + ";" << std::to_string(rez(5, 0)) + ";" << std::to_string(rez(6, 0)) + ";" << std::to_string(rez(7, 0)) + ";" <<
         std::to_string(rez(8, 0)) + ";" << std::to_string(rez(9, 0)) + ";" << std::to_string(rez(10, 0)) + ";" << std::to_string(rez(11, 0)) + "\n";
-
+    
+    int l = 1;
     while (getline(work_file, line))
     {
-        int l = 1;
+       
         set_z(line, z_k_observation_vector, d_k);
         ekf1.process(z_k_observation_vector, d_k, l, rez);
         myfile << std::to_string(rez(0, l)) + ";" << std::to_string(rez(1, l)) + ";" << std::to_string(rez(2, l)) + ";" << std::to_string(rez(3, l)) + ";" <<
