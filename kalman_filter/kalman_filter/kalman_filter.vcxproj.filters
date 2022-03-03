@@ -21,12 +21,12 @@
     <ClCompile Include="set_matrix.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="set_z_get_state.cpp">
+    <ClCompile Include="visual_navigation.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="library.h">
+    <ClInclude Include="visual_navigation.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
